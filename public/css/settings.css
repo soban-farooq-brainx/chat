@@ -4,7 +4,17 @@
     box-sizing: border-box;
 }
 
-.reset-row {
+.reset-row, .reset-col, .reset-container {
     padding: 0;
     margin: 0;
+}
+
+.margin-fix {
+    margin-bottom: 0!important;
+}
+
+
+.form-control:focus {
+    box-shadow: none!important;
+    border: none!important;
 }
