@@ -1939,14 +1939,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['contacts', 'chats'])),
-  methods: {},
+  methods: {
+    fetchChat: function fetchChat(id) {}
+  },
   mounted: function mounted() {
     this.$store.dispatch('fetchContacts');
   }
@@ -37466,23 +37467,35 @@ var render = function() {
           _c("search"),
           _vm._v(" "),
           _vm._l(_vm.contacts, function(contact) {
-            return _c("div", { staticClass: "contact" }, [
-              _c("p", { staticClass: "margin-fix contact-name" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(contact.name) +
-                    "\n                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "margin-fix contact-email" }, [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(contact.email) +
-                    "\n                "
-                )
-              ])
-            ])
+            return _c(
+              "div",
+              {
+                key: contact.id,
+                staticClass: "contact",
+                on: {
+                  click: function($event) {
+                    return _vm.fetchChat(contact.id)
+                  }
+                }
+              },
+              [
+                _c("p", { staticClass: "margin-fix contact-name" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(contact.name) +
+                      "\n                "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "margin-fix contact-email" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(contact.email) +
+                      "\n                "
+                  )
+                ])
+              ]
+            )
           })
         ],
         2

@@ -1,12 +1,11 @@
 <template>
     <div class="reset-container container-fluid">
 
-
         <div class="row reset-row">
             <div class="col-md-3 contacts">
                 <search></search>
 
-                <div class="contact" v-for="contact in contacts">
+                <div class="contact" v-for="contact in contacts" :key="contact.id" @click="fetchChat(contact.id)">
                     <p class="margin-fix contact-name">
                         {{contact.name}}
                     </p>
@@ -37,7 +36,11 @@
                 'chats'
             ])
         },
-        methods: {},
+        methods: {
+            fetchChat(id) {
+
+            }
+        },
         mounted() {
             this.$store.dispatch('fetchContacts');
         }
