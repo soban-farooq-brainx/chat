@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="col-md-9">
-
+                {{chats}}
             </div>
         </div>
 
@@ -38,7 +38,7 @@
         },
         methods: {
             fetchChat(id) {
-
+                this.$store.dispatch('fetchChat', id);
             }
         },
         mounted() {

@@ -1,6 +1,6 @@
 let chatState = {
-  contacts: ['Test contact'],
-  chats: ['test chat']
+  contacts: [],
+  chats: []
 };
 
 

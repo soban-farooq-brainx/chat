@@ -1946,7 +1946,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['contacts', 'chats'])),
   methods: {
-    fetchChat: function fetchChat(id) {}
+    fetchChat: function fetchChat(id) {
+      this.$store.dispatch('fetchChat', id);
+    }
   },
   mounted: function mounted() {
     this.$store.dispatch('fetchContacts');
@@ -37501,7 +37503,9 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-9" })
+      _c("div", { staticClass: "col-md-9" }, [
+        _vm._v("\n            " + _vm._s(_vm.chats) + "\n        ")
+      ])
     ])
   ])
 }
@@ -51590,6 +51594,12 @@ var chatActions = {
       var users = response.data;
       context.commit('fetchContacts', users);
     });
+  },
+  fetchChat: function fetchChat(context, id) {
+    axios.get("/conversations/".concat(id)).then(function (response) {
+      var chat = response.data;
+      context.commit('fetchChat', chat);
+    });
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (chatActions);
@@ -51627,6 +51637,10 @@ var chatMutations = {
   fetchContacts: function fetchContacts(state, users) {
     state.contacts = users;
     return users;
+  },
+  fetchChat: function fetchChat(state, chat) {
+    state.chats = chat;
+    return chat;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (chatMutations);
@@ -51643,8 +51657,8 @@ var chatMutations = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var chatState = {
-  contacts: ['Test contact'],
-  chats: ['test chat']
+  contacts: [],
+  chats: []
 };
 /* harmony default export */ __webpack_exports__["default"] = (chatState);
 

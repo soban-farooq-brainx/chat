@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Conversation;
+use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,7 @@ class ConversationController extends Controller
     public function show($id)
     {
         $user = Auth::id();
-        $messages = Conversation::where(function ($query) use ($user, $id) {
+        $messages = Message::where(function ($query) use ($user, $id) {
             $query->where('sender_id', $user);
             $query->where('receiver_id', $id);
         })->orWhere(function ($query) use ($user, $id) {
@@ -31,7 +32,8 @@ class ConversationController extends Controller
         return $messages;
     }
 
-    public function users() {
+    public function users()
+    {
         $users = User::all()->except(Auth::id());
         return $users;
     }
