@@ -1,0 +1,19 @@
+ $threads = [];
+
+        // this function should get all the conversations of a user.
+        // message sent or received by same user should come under one conversation
+
+        // first get the logged in user
+        $logged_user = Auth::user();
+        $id = $logged_user->id;
+        // then check whether the logged in user id exists in sender_id or receiver_id of conversations table
+//        $conversations = Conversation::where('sender_id', $logged_user)->orWhere('receiver_id', $logged_user)->get();
+//         the above will get all the rows repeating both in sender_id and receiver_id as one
+//        $conversations = Conversation::where('sender_id', $id)
+//            ->get()
+//            ->unique('receiver_id');
+
+
+
+        // the above will give the unique outgoing messages of the logged in user
+//        return $conversations;
