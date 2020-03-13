@@ -20,5 +20,10 @@ Auth::routes();
 
 //Route::get('/conversations', 'ConversationController@index')->name('conversation.home');
 
-// ajax routes
+// axios routes
+
+// get all users
+Route::post('/users', 'ConversationController@users')->name('conversations.users');
+
+// get a specific conversation
 Route::get('/conversations/{id}', 'ConversationController@show')->name('conversation.show');

@@ -14,8 +14,7 @@ class ConversationController extends Controller
     public function index()
     {
         // get all users except logged in
-        $users = User::all()->except(Auth::id());
-        return view('chat', compact('users'));
+        return view('chat');
     }
 
     public function show($id)
@@ -30,5 +29,10 @@ class ConversationController extends Controller
         })->get();
 
         return $messages;
+    }
+
+    public function users() {
+        $users = User::all()->except(Auth::id());
+        return $users;
     }
 }

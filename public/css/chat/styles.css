@@ -1,6 +1,32 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+#search-field {
+    width: 100% !important;
+    border-radius: 0;
+    height: 50px;
+    border:none
 }
 
+.contacts {
+    padding: 0
+}
+
+.contact {
+    border: 1px solid #ededed;
+    padding: 10px;
+    border-bottom: none;
+    cursor: pointer;
+}
+
+.contact:first-child {
+    border-top: none;
+}
+
+.contact:last-child {
+    border-bottom: 1px solid #ededed;
+}
+
+
+.contact-name {
+    font-weight: bold;
+    font-size: 17px;
+}
