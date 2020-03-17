@@ -12,7 +12,8 @@ let chatMutations = {
         state.logged_in_user = user
     },
     sendMessage: (state, payload) => {
-
+        // console.log(state.chats);
+        state.chats.push(payload);
     }
 };
 

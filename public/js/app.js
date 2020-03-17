@@ -37565,10 +37565,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "reset-container container-fluid" }, [
-    _c("div", { staticClass: "row reset-row" }, [
+    _c("div", { staticClass: "chat-flex" }, [
       _c(
         "div",
-        { staticClass: "col-md-3 contacts" },
+        { staticClass: "contacts flex-column" },
         [
           _c("search"),
           _vm._v(" "),
@@ -37609,7 +37609,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-md-9 reset-container message-area-container" },
+        { staticClass: "flex-column reset-container message-area-container" },
         [_c("message-area", { attrs: { user: _vm.user } })],
         1
       )
@@ -51806,11 +51806,10 @@ var chatActions = {
   },
   sendMessage: function sendMessage(context, payload) {
     axios.post('/send-message', payload).then(function (response) {
-      console.log(response);
+      context.commit('sendMessage', payload);
     })["catch"](function (err) {
       console.log(err);
     });
-    context.commit('sendMessage', payload);
   },
   getLoggedInUser: function getLoggedInUser(context) {
     axios.get('/user').then(function (response) {
@@ -51862,7 +51861,10 @@ var chatMutations = {
   getLoggedInUser: function getLoggedInUser(state, user) {
     state.logged_in_user = user;
   },
-  sendMessage: function sendMessage(state, payload) {}
+  sendMessage: function sendMessage(state, payload) {
+    // console.log(state.chats);
+    state.chats.push(payload);
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = (chatMutations);
 

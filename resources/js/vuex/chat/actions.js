@@ -18,11 +18,10 @@ let chatActions = {
     },
     sendMessage: (context, payload) => {
         axios.post('/send-message', payload).then((response) => {
-            console.log(response)
+            context.commit('sendMessage', payload)
         }).catch(err => {
             console.log(err)
         });
-        context.commit('sendMessage', payload)
     },
     getLoggedInUser: (context) => {
         axios.get('/user').then(response => {

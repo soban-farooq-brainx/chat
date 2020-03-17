@@ -1,8 +1,8 @@
 <template>
     <div class="reset-container container-fluid">
 
-        <div class="row reset-row">
-            <div class="col-md-3 contacts">
+        <div class="chat-flex">
+            <div class="contacts flex-column">
                 <search></search>
 
                 <div class="contact" v-for="contact in contacts" :key="contact.id"
@@ -16,7 +16,7 @@
                 </div>
 
             </div>
-            <div class="col-md-9 reset-container message-area-container">
+            <div class="flex-column reset-container message-area-container">
                 <message-area :user="user"></message-area>
             </div>
         </div>
