@@ -23,17 +23,17 @@ body {
     border: none !important;
 }
 
-body::-webkit-scrollbar {
+.messages-container::-webkit-scrollbar {
     width: 7px;
     background-color: #F5F5F5;
 }
 
-body::-webkit-scrollbar-track {
+.messages-container::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #F5F5F5;
 }
 
-body::-webkit-scrollbar-thumb {
+.messages-container::-webkit-scrollbar-thumb {
     background-color: #F90;
     background-image: -webkit-linear-gradient(45deg,
     rgba(255, 255, 255, .2) 25%,
@@ -44,7 +44,6 @@ body::-webkit-scrollbar-thumb {
     transparent 75%,
     transparent)
 }
-
 
 
 .contacts::-webkit-scrollbar {

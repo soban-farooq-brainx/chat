@@ -2155,7 +2155,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user'],
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['contacts', 'chats', 'logged_in_user']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['contacts', 'chats', 'logged_in_user'])),
+  updated: function updated() {
+    // save references
+    var messageContainer = $('.messages-container');
+    var messageContainerFooter = $('.message-footer-container');
+    var messageContainerTop = messageContainer.offset().top;
+    var sendMessageInputTop = messageContainerFooter.offset().top;
+    var height = sendMessageInputTop - messageContainerTop;
+    messageContainer.height(height); // scroll to bottom
+    // messageContainer.animate({scrollTop: messageContainer.height()}, 300);
+
+    messageContainer.scrollTop(messageContainer.height());
+  }
 });
 
 /***/ }),
@@ -37839,9 +37851,9 @@ var render = function() {
               [
                 _c("p", { staticClass: "margin-fix" }, [
                   _vm._v(
-                    "\n                    " +
+                    "\n                " +
                       _vm._s(chat.messages) +
-                      "\n                "
+                      "\n            "
                   )
                 ])
               ]
@@ -37849,7 +37861,7 @@ var render = function() {
           })
         : [
             _c("p", { attrs: { id: "start-conversation" } }, [
-              _vm._v("\n                Start a conversation.\n            ")
+              _vm._v("\n            Start a conversation.\n        ")
             ])
           ]
     ],
