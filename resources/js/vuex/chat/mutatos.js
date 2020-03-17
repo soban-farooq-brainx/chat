@@ -1,11 +1,18 @@
 let chatMutations = {
-    fetchContacts: (state, users) => {
+    setContacts: (state, users) => {
         state.contacts = users;
-        return users
     },
-    fetchChat: (state, chat) => {
+    getContacts: (state) => {
+        return state.contacts;
+    },
+    setChat: (state, chat) => {
         state.chats = chat;
-        return chat;
+    },
+    getLoggedInUser: (state, user) => {
+        state.logged_in_user = user
+    },
+    sendMessage: (state, payload) => {
+
     }
 };
 

@@ -25,5 +25,14 @@ Auth::routes();
 // get all users
 Route::post('/users', 'ConversationController@users')->name('conversations.users');
 
+// get all conversations
+Route::get('/conversations', 'ConversationController@conversations')->name('conversations.all');
+
 // get a specific conversation
 Route::get('/conversations/{id}', 'ConversationController@show')->name('conversation.show');
+
+// send message
+Route::post('/send-message', 'ConversationController@sendMessage')->name('conversation.send');
+
+// get logged in user
+Route::get('/user', 'UserController@user')->name('user.signedInUser');

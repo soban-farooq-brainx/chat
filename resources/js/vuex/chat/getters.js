@@ -1,5 +1,5 @@
 let chatGetters = {
-    fetchContacts: (state) => {
+    getContacts: (state) => {
         return state.contacts;
     }
 };

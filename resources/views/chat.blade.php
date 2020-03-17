@@ -8,7 +8,7 @@
     <title>Chat</title>
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cairo:200,300,400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/settings.css')}}">
     <link rel="stylesheet" href="{{asset('css/chat/styles.css')}}">
@@ -20,6 +20,10 @@
     </chat-window>
 </div>
 
+<script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
 <script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>

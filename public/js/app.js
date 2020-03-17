@@ -1939,19 +1939,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      user: {}
+    };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['contacts', 'chats'])),
   methods: {
-    fetchChat: function fetchChat(id) {
-      this.$store.dispatch('fetchChat', id);
+    getChat: function getChat(id) {
+      this.$store.dispatch('setChat', id);
+    },
+    selectUser: function selectUser(user) {
+      this.user = user;
     }
   },
   mounted: function mounted() {
-    this.$store.dispatch('fetchContacts');
+    var _this = this;
+
+    this.$store.dispatch('setContacts').then(function () {
+      _this.user = _this.$store.getters.getContacts[0];
+
+      _this.getChat(_this.user.id);
+    });
+    this.$store.dispatch('getLoggedInUser');
   }
 });
 
@@ -2023,12 +2037,48 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Footer"
+  props: ['user'],
+  data: function data() {
+    return {
+      message: '',
+      lastMessage: {}
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['chats', 'logged_in_user'])),
+  methods: {
+    sendMessage: function sendMessage() {
+      this.$store.dispatch('sendMessage', {
+        conversation_id: 0,
+        sender_id: this.logged_in_user.id,
+        receiver_id: this.user.id,
+        messages: this.message
+      });
+      this.message = '';
+    }
+  },
+  mounted: function mounted() {
+    var message_container = $('.message-area-container');
+    var to_set_width = message_container.innerWidth();
+    var footer_container = $('.message-footer-container');
+    footer_container.width(to_set_width - 1);
+  }
 });
 
 /***/ }),
@@ -2046,8 +2096,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Header"
+  props: ['user']
 });
 
 /***/ }),
@@ -2061,12 +2123,39 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "messages"
+  props: ['user'],
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['contacts', 'chats', 'logged_in_user']))
 });
 
 /***/ }),
@@ -2084,8 +2173,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "MessageSpace"
+  props: ['user', 'chats'],
+  data: function data() {
+    return {};
+  },
+  updated: function updated() {}
 });
 
 /***/ }),
@@ -37476,7 +37580,7 @@ var render = function() {
                 staticClass: "contact",
                 on: {
                   click: function($event) {
-                    return _vm.fetchChat(contact.id)
+                    ;[_vm.getChat(contact.id), _vm.selectUser(contact)]
                   }
                 }
               },
@@ -37503,9 +37607,12 @@ var render = function() {
         2
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-9" }, [
-        _vm._v("\n            " + _vm._s(_vm.chats) + "\n        ")
-      ])
+      _c(
+        "div",
+        { staticClass: "col-md-9 reset-container message-area-container" },
+        [_c("message-area", { attrs: { user: _vm.user } })],
+        1
+      )
     ])
   ])
 }
@@ -37619,7 +37726,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "message-footer-container" }, [
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.message,
+          expression: "message"
+        }
+      ],
+      staticClass: "form-control",
+      attrs: {
+        type: "text",
+        id: "message-input",
+        placeholder: "Start to type here.."
+      },
+      domProps: { value: _vm.message },
+      on: {
+        keyup: function($event) {
+          if (
+            !$event.type.indexOf("key") &&
+            _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+          ) {
+            return null
+          }
+          return _vm.sendMessage()
+        },
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.message = $event.target.value
+        }
+      }
+    })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37643,7 +37785,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", { staticClass: "custom-header" }, [
+    _c("div", { attrs: { id: "header-name-container" } }, [
+      _c("p", { staticClass: "margin-fix", attrs: { id: "header-name" } }, [
+        _vm._v("\n            " + _vm._s(_vm.user.name) + "\n        ")
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "header-email-container" } }, [
+      _c("p", { staticClass: "margin-fix", attrs: { id: "header-email" } }, [
+        _vm._v("\n            " + _vm._s(_vm.user.email) + "\n        ")
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37667,7 +37821,40 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    { staticClass: "messages-container" },
+    [
+      _vm.chats.length > 0
+        ? _vm._l(_vm.chats, function(chat) {
+            return _c(
+              "div",
+              {
+                staticClass: "message",
+                class: {
+                  myMessage: chat.sender_id === _vm.logged_in_user.id,
+                  notMyMessage: chat.sender_id !== _vm.logged_in_user.id
+                }
+              },
+              [
+                _c("p", { staticClass: "margin-fix" }, [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(chat.messages) +
+                      "\n                "
+                  )
+                ])
+              ]
+            )
+          })
+        : [
+            _c("p", { attrs: { id: "start-conversation" } }, [
+              _vm._v("\n                Start a conversation.\n            ")
+            ])
+          ]
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37691,7 +37878,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    { staticClass: "row reset-row" },
+    [
+      _c("messages-header", { attrs: { user: _vm.user } }),
+      _vm._v(" "),
+      _c("messages"),
+      _vm._v(" "),
+      _c("messages-footer", { attrs: { user: _vm.user } })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -51589,16 +51787,34 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var chatActions = {
-  fetchContacts: function fetchContacts(context) {
-    axios.post('/users', {}).then(function (response) {
-      var users = response.data;
-      context.commit('fetchContacts', users);
+  setContacts: function setContacts(context) {
+    return new Promise(function (resolve, reject) {
+      axios.post('/users').then(function (response) {
+        var users = response.data;
+        context.commit('setContacts', users);
+        resolve('success');
+      })["catch"](function (err) {
+        reject(err);
+      });
     });
   },
-  fetchChat: function fetchChat(context, id) {
+  setChat: function setChat(context, id) {
     axios.get("/conversations/".concat(id)).then(function (response) {
       var chat = response.data;
-      context.commit('fetchChat', chat);
+      context.commit('setChat', chat);
+    });
+  },
+  sendMessage: function sendMessage(context, payload) {
+    axios.post('/send-message', payload).then(function (response) {
+      console.log(response);
+    })["catch"](function (err) {
+      console.log(err);
+    });
+    context.commit('sendMessage', payload);
+  },
+  getLoggedInUser: function getLoggedInUser(context) {
+    axios.get('/user').then(function (response) {
+      context.commit('getLoggedInUser', response.data);
     });
   }
 };
@@ -51616,7 +51832,7 @@ var chatActions = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var chatGetters = {
-  fetchContacts: function fetchContacts(state) {
+  getContacts: function getContacts(state) {
     return state.contacts;
   }
 };
@@ -51634,14 +51850,19 @@ var chatGetters = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var chatMutations = {
-  fetchContacts: function fetchContacts(state, users) {
+  setContacts: function setContacts(state, users) {
     state.contacts = users;
-    return users;
   },
-  fetchChat: function fetchChat(state, chat) {
+  getContacts: function getContacts(state) {
+    return state.contacts;
+  },
+  setChat: function setChat(state, chat) {
     state.chats = chat;
-    return chat;
-  }
+  },
+  getLoggedInUser: function getLoggedInUser(state, user) {
+    state.logged_in_user = user;
+  },
+  sendMessage: function sendMessage(state, payload) {}
 };
 /* harmony default export */ __webpack_exports__["default"] = (chatMutations);
 
@@ -51658,7 +51879,8 @@ var chatMutations = {
 __webpack_require__.r(__webpack_exports__);
 var chatState = {
   contacts: [],
-  chats: []
+  chats: [],
+  logged_in_user: ''
 };
 /* harmony default export */ __webpack_exports__["default"] = (chatState);
 

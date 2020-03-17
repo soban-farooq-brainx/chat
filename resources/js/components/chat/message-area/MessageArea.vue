@@ -1,10 +1,26 @@
 <template>
 
+    <div class="row reset-row">
+        <messages-header :user="user">
+
+        </messages-header>
+        <messages>
+
+        </messages>
+        <messages-footer :user="user">
+
+        </messages-footer>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "MessageSpace"
+        props: ['user', 'chats'],
+        data: function () {
+            return {}
+        },
+        updated() {
+        }
     }
 </script>
 

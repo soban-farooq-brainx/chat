@@ -5,7 +5,8 @@
             <div class="col-md-3 contacts">
                 <search></search>
 
-                <div class="contact" v-for="contact in contacts" :key="contact.id" @click="fetchChat(contact.id)">
+                <div class="contact" v-for="contact in contacts" :key="contact.id"
+                     @click="[getChat(contact.id), selectUser(contact)]">
                     <p class="margin-fix contact-name">
                         {{contact.name}}
                     </p>
@@ -13,9 +14,10 @@
                         {{contact.email}}
                     </p>
                 </div>
+
             </div>
-            <div class="col-md-9">
-                {{chats}}
+            <div class="col-md-9 reset-container message-area-container">
+                <message-area :user="user"></message-area>
             </div>
         </div>
 
@@ -28,21 +30,30 @@
 
     export default {
         data() {
-            return {}
+            return {
+                user: {},
+            }
         },
         computed: {
             ...mapState([
                 'contacts',
                 'chats'
-            ])
+            ]),
         },
         methods: {
-            fetchChat(id) {
-                this.$store.dispatch('fetchChat', id);
-            }
+            getChat(id) {
+                this.$store.dispatch('setChat', id);
+            },
+            selectUser(user) {
+                this.user = user;
+            },
         },
-        mounted() {
-            this.$store.dispatch('fetchContacts');
+        mounted: function () {
+            this.$store.dispatch('setContacts').then(() => {
+                this.user = this.$store.getters.getContacts[0];
+                this.getChat(this.user.id);
+            });
+            this.$store.dispatch('getLoggedInUser');
         }
     }
 </script>

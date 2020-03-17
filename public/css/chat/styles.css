@@ -1,17 +1,23 @@
 
 #search-field {
-    width: 100% !important;
-    border-radius: 0;
-    height: 50px;
-    border:none
+    margin: 20px auto;
+    border-radius: 50px;
+    width: 80% !important;
+    height: 40px;
+    border: none;
+    background-color: #231F26;
 }
 
 .contacts {
-    padding: 0
+    padding: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #000000;
+    color: white;
 }
 
+
 .contact {
-    border: 1px solid #ededed;
     padding: 10px;
     border-bottom: none;
     cursor: pointer;
@@ -21,12 +27,84 @@
     border-top: none;
 }
 
-.contact:last-child {
-    border-bottom: 1px solid #ededed;
-}
-
 
 .contact-name {
     font-weight: bold;
     font-size: 17px;
+}
+
+.contact-email {
+    font-size: 14px;
+    color: darkgray;
+    font-weight: 200;
+}
+
+.message-area-container {
+    background-color: #231F26;
+    color: white;
+}
+
+.custom-header {
+    width: 100%;
+    padding: 10px 30px;
+    border-bottom: 1px solid #2c2530;
+}
+
+
+#header-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#header-email {
+    font-size: 13px;
+    color: darkgray;
+    font-weight: 200;
+}
+
+.messages-container {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.message {
+    padding: 5px 15px;
+    color: white;
+    border-radius: 50px;
+    margin: 6px 10px;
+    clear: both;
+}
+
+.myMessage {
+    background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224));
+    float: right;
+}
+
+.notMyMessage {
+    background: linear-gradient(to right, rgb(0, 180, 219), rgb(0, 131, 176));
+    float: left;
+}
+
+#start-conversation {
+    width: 100%;
+    text-align: center;
+    margin: 120px auto;
+    font-size: 35px;
+    color: #898989;
+    font-weight: 200;
+}
+
+.message-footer-container {
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #2c2530;
+
+}
+
+#message-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    margin: 0 auto;
+    background-color: #231F26;
 }
