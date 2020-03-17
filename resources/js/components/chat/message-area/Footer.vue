@@ -27,7 +27,6 @@
         methods: {
             sendMessage() {
                 this.$store.dispatch('sendMessage', {
-                    conversation_id: 0,
                     user_id: this.logged_in_user.id,
                     receiver_id: this.user.id,
                     message: this.message
@@ -39,7 +38,7 @@
             const message_container = $('.message-area-container');
             const to_set_width = message_container.innerWidth();
             const footer_container = $('.message-footer-container');
-            footer_container.width(to_set_width-1);
+            footer_container.width(to_set_width - 1);
         },
 
     }

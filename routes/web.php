@@ -37,3 +37,5 @@ Route::post('/send-message', 'MessageController@sendMessage')->name('conversatio
 
 // get logged in user
 Route::get('/user', 'UserController@user')->name('user.signedInUser');
+
+Route::get('/test', 'MessageController@test');

@@ -1941,6 +1941,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1952,9 +1953,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     getChat: function getChat(id) {
       this.$store.dispatch('setChat', id);
-    },
-    selectUser: function selectUser(user) {
-      this.user = user;
     }
   },
   mounted: function mounted() {
@@ -1984,8 +1982,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Contact"
+  props: ['contacts'],
+  methods: {
+    getChat: function getChat(id) {
+      this.$store.dispatch('setChat', id);
+    },
+    selectUser: function selectUser(user) {
+      this.$emit('newUserSelected', user);
+    }
+  }
 });
 
 /***/ }),
@@ -2003,8 +2020,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Conversation"
+  methods: {
+    getChat: function getChat(id) {
+      this.$store.dispatch('setChat', id);
+    },
+    selectUser: function selectUser(user) {
+      this.$emit('newUserSelected', user);
+    }
+  }
 });
 
 /***/ }),
@@ -2065,7 +2099,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: {
     sendMessage: function sendMessage() {
       this.$store.dispatch('sendMessage', {
-        conversation_id: 0,
         user_id: this.logged_in_user.id,
         receiver_id: this.user.id,
         message: this.message
@@ -37584,39 +37617,16 @@ var render = function() {
         [
           _c("search"),
           _vm._v(" "),
-          _vm._l(_vm.contacts, function(contact) {
-            return _c(
-              "div",
-              {
-                key: contact.id,
-                staticClass: "contact",
-                on: {
-                  click: function($event) {
-                    ;[_vm.getChat(contact.id), _vm.selectUser(contact)]
-                  }
-                }
-              },
-              [
-                _c("p", { staticClass: "margin-fix contact-name" }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(contact.name) +
-                      "\n                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "margin-fix contact-email" }, [
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(contact.email) +
-                      "\n                "
-                  )
-                ])
-              ]
-            )
+          _c("contact-book", {
+            attrs: { contacts: _vm.contacts },
+            on: {
+              newUserSelected: function($event) {
+                _vm.user = $event
+              }
+            }
           })
         ],
-        2
+        1
       ),
       _vm._v(" "),
       _c(
@@ -37650,7 +37660,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    _vm._l(_vm.contacts, function(contact) {
+      return _c(
+        "div",
+        {
+          key: contact.id,
+          staticClass: "contact",
+          on: {
+            click: function($event) {
+              ;[_vm.getChat(contact.id), _vm.selectUser(contact)]
+            }
+          }
+        },
+        [
+          _c("p", { staticClass: "margin-fix contact-name" }, [
+            _vm._v("\n            " + _vm._s(contact.name) + "\n        ")
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "margin-fix contact-email" }, [
+            _vm._v("\n            " + _vm._s(contact.email) + "\n        ")
+          ])
+        ]
+      )
+    }),
+    0
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37670,14 +37706,8 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div")
-}
+var render = function () {}
 var staticRenderFns = []
-render._withStripped = true
 
 
 

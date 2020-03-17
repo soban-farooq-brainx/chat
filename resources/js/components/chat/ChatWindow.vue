@@ -5,15 +5,16 @@
             <div class="contacts flex-column">
                 <search></search>
 
-                <div class="contact" v-for="contact in contacts" :key="contact.id"
-                     @click="[getChat(contact.id), selectUser(contact)]">
-                    <p class="margin-fix contact-name">
-                        {{contact.name}}
-                    </p>
-                    <p class="margin-fix contact-email">
-                        {{contact.email}}
-                    </p>
-                </div>
+                <contact-book :contacts="contacts" @newUserSelected="user = $event"></contact-book>
+<!--                <div class="contact" v-for="contact in contacts" :key="contact.id"-->
+<!--                     @click="[getChat(contact.id), selectUser(contact)]">-->
+<!--                    <p class="margin-fix contact-name">-->
+<!--                        {{contact.name}}-->
+<!--                    </p>-->
+<!--                    <p class="margin-fix contact-email">-->
+<!--                        {{contact.email}}-->
+<!--                    </p>-->
+<!--                </div>-->
 
             </div>
             <div class="flex-column reset-container message-area-container">
@@ -43,9 +44,6 @@
         methods: {
             getChat(id) {
                 this.$store.dispatch('setChat', id);
-            },
-            selectUser(user) {
-                this.user = user;
             },
         },
         mounted: function () {
