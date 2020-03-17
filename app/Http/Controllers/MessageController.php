@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Conversation;
 use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function foo\func;
 
-class ConversationController extends Controller
+class MessageController extends Controller
 {
     //
 
@@ -24,11 +23,11 @@ class ConversationController extends Controller
     {
         $user = Auth::id();
         $messages = Message::where(function ($query) use ($user, $id) {
-            $query->where('sender_id', $user);
+            $query->where('user_id', $user);
             $query->where('receiver_id', $id);
         })->orWhere(function ($query) use ($user, $id) {
             $query->where('receiver_id', $user);
-            $query->where('sender_id', $id);
+            $query->where('user_id', $id);
         })->get();
 
         return $messages;
@@ -40,10 +39,10 @@ class ConversationController extends Controller
         $users = User::all();
         foreach ($users as $user) {
             $message = Message::where(function ($query) use (&$user) {
-                $query->where('sender_id', Auth::id());
+                $query->where('user_id', Auth::id());
                 $query->where('receiver_id', $user->id);
             })->orWhere(function ($query) use (&$user) {
-                $query->where('sender_id', $user->id);
+                $query->where('user_id', $user->id);
                 $query->where('receiver_id', Auth::id());
             })->orderBy('id', 'DESC')->first();
             if ($message) {

@@ -3,10 +3,10 @@
         <template v-if="chats.length > 0">
             <div v-for="chat in chats"
                  class="message"
-                 :class="{myMessage: chat.sender_id === logged_in_user.id,
-                      notMyMessage: chat.sender_id !== logged_in_user.id }">
+                 :class="{myMessage: chat.user_id === logged_in_user.id,
+                      notMyMessage: chat.user_id !== logged_in_user.id }">
                 <p class="margin-fix">
-                    {{chat.messages}}
+                    {{chat.message}}
                 </p>
             </div>
         </template>

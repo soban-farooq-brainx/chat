@@ -2066,7 +2066,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sendMessage: function sendMessage() {
       this.$store.dispatch('sendMessage', {
         conversation_id: 0,
-        sender_id: this.logged_in_user.id,
+        user_id: this.logged_in_user.id,
         receiver_id: this.user.id,
         message: this.message
       });
@@ -37844,15 +37844,15 @@ var render = function() {
               {
                 staticClass: "message",
                 class: {
-                  myMessage: chat.sender_id === _vm.logged_in_user.id,
-                  notMyMessage: chat.sender_id !== _vm.logged_in_user.id
+                  myMessage: chat.user_id === _vm.logged_in_user.id,
+                  notMyMessage: chat.user_id !== _vm.logged_in_user.id
                 }
               },
               [
                 _c("p", { staticClass: "margin-fix" }, [
                   _vm._v(
                     "\n                " +
-                      _vm._s(chat.messages) +
+                      _vm._s(chat.message) +
                       "\n            "
                   )
                 ])
@@ -51811,7 +51811,7 @@ var chatActions = {
     });
   },
   setChat: function setChat(context, id) {
-    axios.get("/conversations/".concat(id)).then(function (response) {
+    axios.get("/conversation/".concat(id)).then(function (response) {
       var chat = response.data;
       context.commit('setChat', chat);
     });

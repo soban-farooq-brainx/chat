@@ -11,7 +11,7 @@ let chatActions = {
         })
     },
     setChat: (context, id) => {
-        axios.get(`/conversations/${id}`).then(response => {
+        axios.get(`/conversation/${id}`).then(response => {
             let chat = response.data;
             context.commit('setChat', chat);
         });
