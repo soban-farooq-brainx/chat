@@ -18,6 +18,7 @@ Route::get('/', 'ConversationController@index')->name('chat.index');
 
 Auth::routes();
 
+
 //Route::get('/conversations', 'ConversationController@index')->name('conversation.home');
 
 // axios routes

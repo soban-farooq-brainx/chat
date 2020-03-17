@@ -2068,7 +2068,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         conversation_id: 0,
         sender_id: this.logged_in_user.id,
         receiver_id: this.user.id,
-        messages: this.message
+        message: this.message
       });
       this.message = '';
     }

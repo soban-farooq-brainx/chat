@@ -6,8 +6,15 @@ use App\Message;
 use Faker\Generator as Faker;
 
 $factory->define(Message::class, function (Faker $faker) {
+    do {
+        $user_id = rand(1, 10);
+        $receiver_id = rand(1, 10);
+    } while ($user_id == $receiver_id);
+
     return [
         //
-        'messages' => $faker->sentence
+        'user_id' => $user_id,
+        'receiver_id' => $receiver_id,
+        'message' => $faker->sentence
     ];
 });
