@@ -1,4 +1,16 @@
 let chatActions = {
+
+    setConversations: (context) => {
+        return new Promise((resolve, reject) => {
+            axios.get('/conversations').then(response => {
+                let conversations = response.data;
+                context.commit('setConversations', conversations);
+                resolve('success')
+            }).catch(err => {
+                reject(err);
+            });
+        })
+    },
     setContacts: (context) => {
         return new Promise((resolve, reject) => {
             axios.post('/users').then(response => {

@@ -25,12 +25,34 @@
 
     export default {
         props: ['user'],
+        data: function () {
+            return {
+                listenCalled: false
+            }
+        },
         computed: {
             ...mapState([
                 'contacts',
                 'chats',
                 'logged_in_user'
             ]),
+        },
+        methods: {
+            listen() {
+                console.log('listen called');
+                Echo.private(`messages.${this.logged_in_user.id}`)
+                    .listen('NewMessage', (response) => {
+                        console.log(this.chats);
+                        // check if we are talking to the user right now
+                        if (response.message.user_id === this.user.id) {
+                            // means we are talking to user
+                            this.chats.push(response.message);
+                        }
+                        console.log(response.message)
+                    });
+            }
+        },
+        mounted() {
         },
         updated() {
             // save references
@@ -42,7 +64,11 @@
             messageContainer.height(height);
             // scroll to bottom
             // messageContainer.animate({scrollTop: messageContainer.height()}, 300);
-            messageContainer.scrollTop(messageContainer.height());
+            messageContainer.scrollTop(10000000);
+            if(this.listenCalled===false) {
+                this.listenCalled = true;
+                this.listen();
+            }
         }
     }
 </script>

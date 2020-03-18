@@ -3,19 +3,16 @@
 
         <div class="chat-flex">
             <div class="contacts flex-column">
-                <search></search>
-
-                <contact-book :contacts="contacts" @newUserSelected="user = $event"></contact-book>
-<!--                <div class="contact" v-for="contact in contacts" :key="contact.id"-->
-<!--                     @click="[getChat(contact.id), selectUser(contact)]">-->
-<!--                    <p class="margin-fix contact-name">-->
-<!--                        {{contact.name}}-->
-<!--                    </p>-->
-<!--                    <p class="margin-fix contact-email">-->
-<!--                        {{contact.email}}-->
-<!--                    </p>-->
-<!--                </div>-->
-
+                <search :showConversation="showConversation" @newConversation="showConversation = $event"></search>
+                <div class="contact-book-component-wrapper" :class="{hide: showConversation}">
+                    <!-- contact-book has all components -->
+                    <contact-book :contacts="contacts" @newUserSelected="user = $event"></contact-book>
+                </div>
+                <div class="conversation-component-wrapper" :class="{hide: !showConversation}">
+                    <!-- conversation component -->
+                    <conversation @newUserSelected="user = $event"></conversation>
+                </div>
+                <!-- Should switch between contact book and conversation component upon clicking the buttons-->
             </div>
             <div class="flex-column reset-container message-area-container">
                 <message-area :user="user"></message-area>
@@ -33,10 +30,12 @@
         data() {
             return {
                 user: {},
+                showConversation: false
             }
         },
         computed: {
             ...mapState([
+                'conversations',
                 'contacts',
                 'chats'
             ]),
@@ -45,13 +44,21 @@
             getChat(id) {
                 this.$store.dispatch('setChat', id);
             },
+
         },
         mounted: function () {
+            // first storing contacts on start
             this.$store.dispatch('setContacts').then(() => {
                 this.user = this.$store.getters.getContacts[0];
                 this.getChat(this.user.id);
             });
+
+            this.$store.dispatch('setConversations').then(() => {
+                // console.log('why undefined? ', this.$store.getters.getConversations);
+            });
+
             this.$store.dispatch('getLoggedInUser');
+
         }
     }
 </script>

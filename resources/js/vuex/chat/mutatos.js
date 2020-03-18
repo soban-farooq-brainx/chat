@@ -1,4 +1,10 @@
 let chatMutations = {
+    setConversations: (state, conversations) => {
+        state.conversations = conversations;
+    },
+    getConversations: (state) => {
+        return state.conversations;
+    },
     setContacts: (state, users) => {
         state.contacts = users;
     },

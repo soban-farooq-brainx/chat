@@ -4,7 +4,7 @@
         <messages-header :user="user">
 
         </messages-header>
-        <messages>
+        <messages :user="user">
 
         </messages>
         <messages-footer :user="user">

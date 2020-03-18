@@ -23,6 +23,12 @@ body {
     border: none !important;
 }
 
+
+.btn {
+    border: none!important;
+    box-shadow: none!important;
+}
+
 .messages-container::-webkit-scrollbar {
     width: 7px;
     background-color: #F5F5F5;
