@@ -47689,47 +47689,10 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            {
-              staticClass: "contact-book-component-wrapper",
-              class: { hide: _vm.showConversation }
-            },
-            [
-              _c("contact-book", {
-                attrs: { contacts: _vm.contacts },
-                on: {
-                  newUserSelected: function($event) {
-                    _vm.user = $event
-                  }
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "conversation-component-wrapper",
-              class: { hide: !_vm.showConversation }
-            },
-            [
-              _c("conversation", {
-                on: {
-                  newUserSelected: function($event) {
-                    _vm.user = $event
-                  }
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "search-component-wrapper", class: { hide: true } },
+            { staticClass: "search-component-wrapper" },
             [
               _c("search-results", {
-                attrs: { searchContacts: _vm.contacts },
+                attrs: { contacts: _vm.searchContacts },
                 on: {
                   newUserSelected: function($event) {
                     _vm.user = $event

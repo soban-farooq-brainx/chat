@@ -4,16 +4,16 @@
         <div class="chat-flex">
             <div class="contacts flex-column">
                 <search :showConversation="showConversation" @newConversation="showConversation = $event"></search>
-                <div class="contact-book-component-wrapper" :class="{hide: showConversation}">
-                    <!-- contact-book has all components -->
-                    <contact-book :contacts="contacts" @newUserSelected="user = $event"></contact-book>
-                </div>
-                <div class="conversation-component-wrapper" :class="{hide: !showConversation}">
-                    <!-- conversation component -->
-                    <conversation @newUserSelected="user = $event"></conversation>
-                </div>
-                <div class="search-component-wrapper" :class="{hide: true}">
-                    <search-results :searchContacts="contacts"
+<!--                <div class="contact-book-component-wrapper" :class="{hide: showConversation}">-->
+<!--                    &lt;!&ndash; contact-book has all components &ndash;&gt;-->
+<!--                    <contact-book :contacts="contacts" @newUserSelected="user = $event"></contact-book>-->
+<!--                </div>-->
+<!--                <div class="conversation-component-wrapper" :class="{hide: !showConversation}">-->
+<!--                    &lt;!&ndash; conversation component &ndash;&gt;-->
+<!--                    <conversation @newUserSelected="user = $event"></conversation>-->
+<!--                </div>-->
+                <div class="search-component-wrapper">
+                    <search-results :contacts="searchContacts"
                                     @newUserSelected="user = $event"
                                     @searchStarted="searchContact"
                     ></search-results>
