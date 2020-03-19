@@ -27,7 +27,6 @@
         computed: {
             performSearch() {
                 let contacts = '';
-                console.log('before search', this.contacts);
                 if (!this.searchResults) {
                     console.log('contacts are not loaded yet.');
                     return;
@@ -36,8 +35,6 @@
                 contacts = this.searchResults.filter(contact => {
                     return contact.name.toLowerCase().includes(this.query.toLowerCase())
                 });
-                console.log('after search', contacts);
-
                 return contacts;
             }
         },

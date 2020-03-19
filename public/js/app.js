@@ -1950,7 +1950,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       user: {},
-      showConversation: false,
+      showContacts: true,
+      showConversations: false,
       toggle: '',
       search: ''
     };
@@ -1968,6 +1969,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     toggleMenu: function toggleMenu(toggle) {
       this.toggle = toggle;
+    },
+    switchBetweenComponents: function switchBetweenComponents(switchValues) {
+      this.showContacts = switchValues.showContacts;
+      this.showConversations = switchValues.showConversations;
     }
   },
   mounted: function mounted() {
@@ -2022,7 +2027,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var contacts = '';
-      console.log('before search', this.contacts);
 
       if (!this.searchResults) {
         console.log('contacts are not loaded yet.');
@@ -2033,7 +2037,6 @@ __webpack_require__.r(__webpack_exports__);
       contacts = this.searchResults.filter(function (contact) {
         return contact.name.toLowerCase().includes(_this.query.toLowerCase());
       });
-      console.log('after search', contacts);
       return contacts;
     }
   },
@@ -2155,9 +2158,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['showConversation'],
+  props: ['showConversation', 'showContacts'],
   data: function data() {
     return {
       search: '',
@@ -2170,8 +2174,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var conversation = !this.showConversation;
       this.$emit('newConversation', conversation);
     },
+    switchToContacts: function switchToContacts() {
+      var showContacts = true;
+      var showConversation = false;
+      this.emitEvents(showContacts, showConversation);
+    },
+    switchToConversations: function switchToConversations() {
+      var showConversation = true;
+      var showContacts = false;
+      this.emitEvents(showContacts, showConversation);
+    },
     searchContacts: function searchContacts() {
       this.$emit('searchStarted', this.search);
+    },
+    emitEvents: function emitEvents(contact, conversation) {
+      var switchComponent = {
+        showContacts: contact,
+        showConversations: conversation
+      };
+      this.$emit('switchedBetweenContactAndConversation', switchComponent);
     }
   }
 });
@@ -47695,10 +47716,13 @@ var render = function() {
         },
         [
           _c("search", {
-            attrs: { showConversation: _vm.showConversation },
+            attrs: {
+              showConversation: _vm.showConversations,
+              showContacts: _vm.showContacts
+            },
             on: {
-              newConversation: function($event) {
-                _vm.showConversation = $event
+              switchedBetweenContactAndConversation: function($event) {
+                return _vm.switchBetweenComponents($event)
               },
               searchStarted: function($event) {
                 return _vm.startSearch($event)
@@ -47710,7 +47734,7 @@ var render = function() {
             "div",
             {
               staticClass: "contact-book-component-wrapper",
-              class: { hide: _vm.showConversation }
+              class: { hide: !_vm.showContacts }
             },
             [
               _c("contact-book", {
@@ -47729,7 +47753,7 @@ var render = function() {
             "div",
             {
               staticClass: "conversation-component-wrapper",
-              class: { hide: !_vm.showConversation }
+              class: { hide: !_vm.showConversations }
             },
             [
               _c("conversation", {
@@ -47949,7 +47973,7 @@ var render = function() {
         {
           staticClass: "btn btn-sm",
           attrs: { id: "contacts-switch-button" },
-          on: { click: _vm.switchComponent }
+          on: { click: _vm.switchToContacts }
         },
         [_vm._v("Contacts")]
       ),
@@ -47959,9 +47983,9 @@ var render = function() {
         {
           staticClass: "btn btn-sm",
           attrs: { id: "conversation-switch-button" },
-          on: { click: _vm.switchComponent }
+          on: { click: _vm.switchToConversations }
         },
-        [_vm._v("Conversations")]
+        [_vm._v("Conversations\n        ")]
       )
     ])
   ])

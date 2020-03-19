@@ -3,18 +3,18 @@
 
         <div class="chat-flex">
             <div class="contacts flex-column" :class="{menuToggle: toggle}">
-                <search :showConversation="showConversation"
-                        @newConversation="showConversation = $event"
+                <search :showConversation="showConversations" :showContacts="showContacts"
+                        @switchedBetweenContactAndConversation="switchBetweenComponents($event)"
                         @searchStarted="startSearch($event)"
                 ></search>
                 <div class="contact-book-component-wrapper"
-                     :class="{'hide': showConversation}">
+                     :class="{'hide': !showContacts}">
                     <!-- contact-book has all components -->
                     <contact-book :contacts="contacts" @newUserSelected="user = $event"
                                   :query="search"></contact-book>
                 </div>
                 <div class="conversation-component-wrapper"
-                     :class="{'hide': !showConversation}">
+                     :class="{'hide': !showConversations}">
                     <!-- conversation component -->
                     <conversation @newUserSelected="user = $event"></conversation>
                 </div>
@@ -36,7 +36,8 @@
         data() {
             return {
                 user: {},
-                showConversation: false,
+                showContacts: true,
+                showConversations: false,
                 toggle: '',
                 search: ''
             }
@@ -63,6 +64,10 @@
             toggleMenu(toggle) {
                 this.toggle = toggle;
             },
+            switchBetweenComponents(switchValues) {
+                this.showContacts = switchValues.showContacts;
+                this.showConversations = switchValues.showConversations;
+            }
         },
         mounted: function () {
             // first storing contacts on start
