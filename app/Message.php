@@ -17,14 +17,12 @@ class Message extends Model
 
     public function sender()
     {
-        $user = Auth::id();
-        return $this->belongsTo('App\User')->where('id', '=', $user);
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public function receiver()
     {
-        $user = Auth::id();
-        return $this->belongsTo('App\User')->where('id', '!=', $user);
+        return $this->belongsTo('App\User', 'receiver_id');
     }
 
 

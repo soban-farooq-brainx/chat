@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="contact" v-for="(contact,index) in performSearch" :class="{'active': index===0}" :key="contact.id"
-             @click="[getChat(contact.id), selectUser(contact), addActiveClass(index)]">
+             @click="[getChat(contact.id), selectUser(contact), addActiveClass(index)]"
+        >
             <p class="margin-fix contact-name">
                 {{contact.name}}
             </p>
