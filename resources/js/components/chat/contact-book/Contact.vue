@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="contact" v-for="contact in contacts" :key="contact.id"
+        <div class="contact" v-for="contact in performSearch" :key="contact.id"
              @click="[getChat(contact.id), selectUser(contact)]">
             <p class="margin-fix contact-name">
                 {{contact.name}}
@@ -16,8 +16,36 @@
 <script>
     export default {
         props: [
-            'contacts'
+            'contacts',
+            'query'
         ],
+        data() {
+            return {
+                searchResults: ''
+            }
+        },
+        computed: {
+            performSearch() {
+                let contacts = '';
+                console.log('before search', this.contacts);
+                if (!this.searchResults) {
+                    console.log('contacts are not loaded yet.');
+                    return;
+                }
+                // perform search
+                contacts = this.searchResults.filter(contact => {
+                    return contact.name.toLowerCase().includes(this.query.toLowerCase())
+                });
+                console.log('after search', contacts);
+
+                return contacts;
+            }
+        },
+        watch: {
+            contacts(contacts) {
+                this.searchResults = contacts;
+            }
+        },
         methods: {
             getChat(id) {
                 this.$store.dispatch('setChat', id);

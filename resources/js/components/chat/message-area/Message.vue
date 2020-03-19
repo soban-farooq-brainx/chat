@@ -40,7 +40,6 @@
         },
         methods: {
             listen() {
-                console.log('listen called');
                 Echo.private(`messages.${this.logged_in_user.id}`)
                     .listen('NewMessage', (response) => {
                         // check if we are talking to the user right now

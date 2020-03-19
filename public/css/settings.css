@@ -6,6 +6,7 @@
 
 body {
     font-family: 'Cairo', sans-serif;
+    overflow: hidden;
 }
 
 .reset-row, .reset-col, .reset-container {
@@ -25,8 +26,8 @@ body {
 
 
 .btn {
-    border: none!important;
-    box-shadow: none!important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .messages-container::-webkit-scrollbar {
@@ -72,4 +73,8 @@ body {
     rgba(255, 255, 255, .2) 75%,
     transparent 75%,
     transparent)
+}
+
+.searchHidden {
+    display: none;
 }
