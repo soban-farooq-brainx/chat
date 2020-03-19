@@ -1,7 +1,8 @@
 <template>
     <div>
-        <div class="contact" v-for="conversation in conversations" :key="conversation.id"
-             @click="[getChat(conversation)]">
+        <div class="conversation" v-for="(conversation, index) in conversations" :class="{'active': index===0}"
+             :key="conversation.id"
+             @click="[getChat(conversation), addActiveClass(index)]">
             <template v-if="conversation.user.id === logged_in_user.id">
                 <p class="margin-fix contact-name">
                     {{conversation.receiver.name}}
@@ -55,6 +56,13 @@
             selectUser(user) {
                 this.$emit('newUserSelected', user);
             },
+            addActiveClass(index) {
+                let elements = [...document.querySelectorAll('.conversation')];
+                elements.forEach(element => {
+                    element.classList.remove('active');
+                });
+                elements[index].classList.add('active');
+            }
         },
         updated() {
             this.conversationData = this.conversations;

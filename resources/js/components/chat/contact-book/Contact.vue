@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="contact" v-for="contact in performSearch" :key="contact.id"
-             @click="[getChat(contact.id), selectUser(contact)]">
+        <div class="contact" v-for="(contact,index) in performSearch" :class="{'active': index===0}" :key="contact.id"
+             @click="[getChat(contact.id), selectUser(contact), addActiveClass(index)]">
             <p class="margin-fix contact-name">
                 {{contact.name}}
             </p>
@@ -12,7 +12,6 @@
     </div>
 
 </template>
-
 <script>
     export default {
         props: [
@@ -50,6 +49,13 @@
             selectUser(user) {
                 this.$emit('newUserSelected', user);
             },
+            addActiveClass(index) {
+                let elements = [...document.querySelectorAll('.contact')];
+                elements.forEach(element => {
+                    element.classList.remove('active');
+                });
+                elements[index].classList.add('active');
+            }
         }
     }
 </script>

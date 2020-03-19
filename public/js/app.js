@@ -2000,7 +2000,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 //
 //
 //
@@ -2051,6 +2058,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectUser: function selectUser(user) {
       this.$emit('newUserSelected', user);
+    },
+    addActiveClass: function addActiveClass(index) {
+      var elements = _toConsumableArray(document.querySelectorAll('.contact'));
+
+      elements.forEach(function (element) {
+        element.classList.remove('active');
+      });
+      elements[index].classList.add('active');
     }
   }
 });
@@ -2067,12 +2082,21 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -2122,6 +2146,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     selectUser: function selectUser(user) {
       this.$emit('newUserSelected', user);
+    },
+    addActiveClass: function addActiveClass(index) {
+      var elements = _toConsumableArray(document.querySelectorAll('.conversation'));
+
+      elements.forEach(function (element) {
+        element.classList.remove('active');
+      });
+      elements[index].classList.add('active');
     }
   },
   updated: function updated() {
@@ -47812,15 +47844,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.performSearch, function(contact) {
+    _vm._l(_vm.performSearch, function(contact, index) {
       return _c(
         "div",
         {
           key: contact.id,
           staticClass: "contact",
+          class: { active: index === 0 },
           on: {
             click: function($event) {
-              ;[_vm.getChat(contact.id), _vm.selectUser(contact)]
+              ;[
+                _vm.getChat(contact.id),
+                _vm.selectUser(contact),
+                _vm.addActiveClass(index)
+              ]
             }
           }
         },
@@ -47862,15 +47899,16 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.conversations, function(conversation) {
+    _vm._l(_vm.conversations, function(conversation, index) {
       return _c(
         "div",
         {
           key: conversation.id,
-          staticClass: "contact",
+          staticClass: "conversation",
+          class: { active: index === 0 },
           on: {
             click: function($event) {
-              ;[_vm.getChat(conversation)]
+              ;[_vm.getChat(conversation), _vm.addActiveClass(index)]
             }
           }
         },
