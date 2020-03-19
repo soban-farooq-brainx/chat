@@ -1,15 +1,11 @@
 let chatMutations = {
-    setConversations: (state, conversations) => {
-        state.conversations = conversations;
+    setConversations: (state, users) => {
+        state.conversations = users;
     },
-    getConversations: (state) => {
-        return state.conversations;
-    },
+
     setContacts: (state, users) => {
         state.contacts = users;
-    },
-    getContacts: (state) => {
-        return state.contacts;
+        state.searchContacts = users;
     },
     setChat: (state, chat) => {
         state.chats = chat;
@@ -17,8 +13,7 @@ let chatMutations = {
     getLoggedInUser: (state, user) => {
         state.logged_in_user = user
     },
-    sendMessage: (state, payload) => {
-        // console.log(state.chats);
+    appendMessage: (state, payload) => {
         state.chats.push(payload);
     }
 };

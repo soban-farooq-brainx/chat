@@ -30,6 +30,7 @@ Vue.component('message-area', require('./components/chat/message-area/MessageAre
 
 // following can be a local component inside contact-book/conversation
 Vue.component('search', require('./components/chat/contact-book/Search').default);
+Vue.component('search-results', require('./components/chat/contact-book/SearchResults').default);
 
 // following can become local component inside message-area
 Vue.component('messages-header', require('./components/chat/message-area/Header').default);

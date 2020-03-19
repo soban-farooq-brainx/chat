@@ -48,7 +48,7 @@ class MessageController extends Controller
             $query->where('messages.user_id', '=', $user->id);
         })->orWhereHas('user', function (Builder $query) use ($user) {
             $query->where('messages.receiver_id', '=', $user->id);
-        })->groupBy('receiver_id')->orderBy('id', 'DESC')->with('user')->with('receiver')->get();
+        })->groupBy('receiver_id')->with('user')->with('receiver')->get();
 
 //        dd($user);
 //        $users = User::where('id','!=',$user->id)->whereHas('messages', function (Builder $query) use ($user) {

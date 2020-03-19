@@ -16,7 +16,7 @@ let chatActions = {
             axios.post('/users').then(response => {
                 let users = response.data;
                 context.commit('setContacts', users);
-                resolve('success')
+                resolve()
             }).catch(err => {
                 reject(err)
             });
@@ -29,16 +29,26 @@ let chatActions = {
         });
     },
     sendMessage: (context, payload) => {
-        axios.post('/send-message', payload).then((response) => {
-            context.commit('sendMessage', payload)
-        }).catch(err => {
-            console.log(err)
+        return new Promise((resolve, reject) => {
+            axios.post('/send-message', payload).then((response) => {
+                if (response.status === 201)
+                    resolve(response.data);
+            }).catch(err => {
+                reject(err)
+            });
         });
+
     },
     getLoggedInUser: (context) => {
-        axios.get('/user').then(response => {
-            context.commit('getLoggedInUser', response.data);
-        })
+        return new Promise((resolve, reject) => {
+            axios.get('/user').then(response => {
+                context.commit('getLoggedInUser', response.data);
+                resolve(response.data);
+            }).catch(err => {
+                reject(err);
+            })
+        });
+
     }
 };
 

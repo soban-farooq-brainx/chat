@@ -8,31 +8,39 @@
 
 <script>
 
-    import {mapState} from 'vuex';
+    import {mapState, mapMutations} from 'vuex';
 
     export default {
         props: ['user'],
         data: function () {
             return {
                 message: '',
-                lastMessage: {}
+                messageObj: {}
             }
         },
         computed: {
             ...mapState([
                 'chats',
                 'logged_in_user'
-            ])
+            ]),
         },
         methods: {
+            ...mapMutations([
+                'appendMessage'
+            ])
+            ,
             sendMessage() {
-                this.$store.dispatch('sendMessage', {
+                this.messageObj = {
                     user_id: this.logged_in_user.id,
                     receiver_id: this.user.id,
                     message: this.message
+                };
+                this.message = '';
+                this.$store.dispatch('sendMessage', this.messageObj).then((response) => {
+                    console.log(response);
                 });
-                this.message = ''
-            }
+                this.appendMessage(this.messageObj)
+            },
         },
         mounted() {
             const message_container = $('.message-area-container');

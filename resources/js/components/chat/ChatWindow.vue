@@ -12,6 +12,12 @@
                     <!-- conversation component -->
                     <conversation @newUserSelected="user = $event"></conversation>
                 </div>
+                <div class="search-component-wrapper" :class="{hide: true}">
+                    <search-results :searchContacts="contacts"
+                                    @newUserSelected="user = $event"
+                                    @searchStarted="searchContact"
+                    ></search-results>
+                </div>
                 <!-- Should switch between contact book and conversation component upon clicking the buttons-->
             </div>
             <div class="flex-column reset-container message-area-container">
@@ -24,39 +30,42 @@
 
 <script>
 
-    import {mapState, mapActions} from 'vuex';
+    import {mapState, mapGetters} from 'vuex';
 
     export default {
         data() {
             return {
                 user: {},
-                showConversation: false
+                showConversation: false,
+                search: false
             }
         },
         computed: {
             ...mapState([
                 'conversations',
                 'contacts',
+                'searchContacts',
                 'chats'
             ]),
+
         },
         methods: {
             getChat(id) {
                 this.$store.dispatch('setChat', id);
             },
-
+            searchContact(value) {
+                console.log('hello');
+            }
         },
         mounted: function () {
             // first storing contacts on start
             this.$store.dispatch('setContacts').then(() => {
                 this.user = this.$store.getters.getContacts[0];
                 this.getChat(this.user.id);
+                console.log(this.user);
             });
 
-            this.$store.dispatch('setConversations').then(() => {
-                // console.log('why undefined? ', this.$store.getters.getConversations);
-            });
-
+            this.$store.dispatch('setConversations');
             this.$store.dispatch('getLoggedInUser');
 
         }

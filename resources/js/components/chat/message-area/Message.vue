@@ -13,7 +13,7 @@
         <template v-else>
             <p id="start-conversation">
                 <!--                Start a conversation with {{user.name}}-->
-                Start a conversation.
+                Start conversation
             </p>
         </template>
 
@@ -36,23 +36,20 @@
                 'chats',
                 'logged_in_user'
             ]),
+
         },
         methods: {
             listen() {
                 console.log('listen called');
                 Echo.private(`messages.${this.logged_in_user.id}`)
                     .listen('NewMessage', (response) => {
-                        console.log(this.chats);
                         // check if we are talking to the user right now
                         if (response.message.user_id === this.user.id) {
                             // means we are talking to user
                             this.chats.push(response.message);
                         }
-                        console.log(response.message)
                     });
             }
-        },
-        mounted() {
         },
         updated() {
             // save references
@@ -65,7 +62,9 @@
             // scroll to bottom
             // messageContainer.animate({scrollTop: messageContainer.height()}, 300);
             messageContainer.scrollTop(10000000);
-            if(this.listenCalled===false) {
+
+            // make sure listen is called only once
+            if (this.listenCalled === false) {
                 this.listenCalled = true;
                 this.listen();
             }
