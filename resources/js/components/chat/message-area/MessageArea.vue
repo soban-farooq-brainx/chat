@@ -1,7 +1,7 @@
 <template>
 
     <div class="row reset-row">
-        <messages-header :user="user">
+        <messages-header :user="user" @menuToggled="menuToggled($event)">
 
         </messages-header>
         <messages :user="user">
@@ -18,6 +18,11 @@
         props: ['user', 'chats'],
         data: function () {
             return {}
+        },
+        methods: {
+            menuToggled: function (toggle) {
+                this.$emit('menuToggled', toggle)
+            }
         },
         updated() {
         }

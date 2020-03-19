@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/settings.css')}}">
     <link rel="stylesheet" href="{{asset('css/chat/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('css/responsive/media-queries.css')}}">
 </head>
 <body>
 <div id="app">

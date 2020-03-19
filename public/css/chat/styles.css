@@ -81,6 +81,9 @@
     display: flex;
 }
 
+#responsive-header-menu {
+    display: none;
+}
 
 #header-name {
     font-size: 20px;
@@ -97,6 +100,7 @@
     width: 100%;
     margin-top: 75px;
     overflow-y: auto;
+    height: 9999px;
 }
 
 .message {
@@ -138,4 +142,5 @@
     border: none;
     margin: 0 auto;
     background-color: #231F26;
+    border-radius: 0;
 }

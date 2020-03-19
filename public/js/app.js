@@ -1951,7 +1951,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       user: {},
       showConversation: false,
-      search: false
+      search: false,
+      toggle: ''
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['conversations', 'contacts', 'searchContacts', 'chats'])),
@@ -1959,8 +1960,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getChat: function getChat(id) {
       this.$store.dispatch('setChat', id);
     },
+    selectedNewUser: function selectedNewUser(user) {
+      this.user = user;
+    },
     searchContact: function searchContact(value) {
       console.log('hello');
+    },
+    toggleMenu: function toggleMenu(toggle) {
+      this.toggle = toggle;
     }
   },
   mounted: function mounted() {
@@ -2274,8 +2281,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['user']
+  props: ['user'],
+  data: function data() {
+    return {
+      toggle: false
+    };
+  },
+  methods: {
+    menuToggle: function menuToggle() {
+      this.toggle = !this.toggle;
+      this.$emit('menuToggled', this.toggle);
+    }
+  }
 });
 
 /***/ }),
@@ -2390,6 +2419,11 @@ __webpack_require__.r(__webpack_exports__);
   props: ['user', 'chats'],
   data: function data() {
     return {};
+  },
+  methods: {
+    menuToggled: function menuToggled(toggle) {
+      this.$emit('menuToggled', toggle);
+    }
   },
   updated: function updated() {}
 });
@@ -47676,7 +47710,10 @@ var render = function() {
     _c("div", { staticClass: "chat-flex" }, [
       _c(
         "div",
-        { staticClass: "contacts flex-column" },
+        {
+          staticClass: "contacts flex-column",
+          class: { menuToggle: _vm.toggle }
+        },
         [
           _c("search", {
             attrs: { showConversation: _vm.showConversation },
@@ -47695,7 +47732,7 @@ var render = function() {
                 attrs: { contacts: _vm.searchContacts },
                 on: {
                   newUserSelected: function($event) {
-                    _vm.user = $event
+                    return _vm.selectedNewUser($event)
                   },
                   searchStarted: _vm.searchContact
                 }
@@ -47710,7 +47747,16 @@ var render = function() {
       _c(
         "div",
         { staticClass: "flex-column reset-container message-area-container" },
-        [_c("message-area", { attrs: { user: _vm.user } })],
+        [
+          _c("message-area", {
+            attrs: { user: _vm.user },
+            on: {
+              menuToggled: function($event) {
+                return _vm.toggleMenu($event)
+              }
+            }
+          })
+        ],
         1
       )
     ])
@@ -48060,6 +48106,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "custom-header" }, [
+    _c("div", { attrs: { id: "responsive-header-menu" } }, [
+      _c("h3", { staticClass: "float-left margin-fix" }, [_vm._v("Chats")]),
+      _vm._v(" "),
+      _c("h3", { staticClass: "float-right" }, [
+        _c(
+          "div",
+          {
+            staticClass: "hamburger",
+            on: {
+              click: function($event) {
+                return _vm.menuToggle()
+              }
+            }
+          },
+          [
+            _c("span", { staticClass: "hamburger-bar" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "hamburger-bar" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "hamburger-bar" })
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "clearfix" })
+    ]),
+    _vm._v(" "),
     _c("div", { attrs: { id: "header-name-container" } }, [
       _c("p", { staticClass: "margin-fix", attrs: { id: "header-name" } }, [
         _vm._v("\n            " + _vm._s(_vm.user.name) + "\n        ")
@@ -48156,7 +48229,14 @@ var render = function() {
     "div",
     { staticClass: "row reset-row" },
     [
-      _c("messages-header", { attrs: { user: _vm.user } }),
+      _c("messages-header", {
+        attrs: { user: _vm.user },
+        on: {
+          menuToggled: function($event) {
+            return _vm.menuToggled($event)
+          }
+        }
+      }),
       _vm._v(" "),
       _c("messages", { attrs: { user: _vm.user } }),
       _vm._v(" "),
