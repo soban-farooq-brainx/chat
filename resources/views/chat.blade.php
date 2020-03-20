@@ -16,8 +16,7 @@
 </head>
 <body>
 <div id="app">
-    <chat-window>
-
+    <chat-window :user_profile="{{$user}}">
     </chat-window>
 </div>
 

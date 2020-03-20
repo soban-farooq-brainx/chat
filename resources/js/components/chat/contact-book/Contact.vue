@@ -1,8 +1,11 @@
 <template>
     <div>
-        <div class="contact" v-for="(contact,index) in performSearch" :class="{'active': index===0}" :key="contact.id"
+        <div class="contact" v-for="(contact,index) in performSearch"
+             :class="[index === 0 ? 'active': '']"
+             :key="contact.id"
              @click="[getChat(contact.id), selectUser(contact), addActiveClass(index)]"
         >
+            <span :class="[unread(contact) ? 'unread' : '']"></span>
             <p class="margin-fix contact-name">
                 {{contact.name}}
             </p>
@@ -25,6 +28,7 @@
             }
         },
         computed: {
+
             performSearch() {
                 let contacts = '';
                 if (!this.searchResults) {
@@ -56,7 +60,13 @@
                     element.classList.remove('active');
                 });
                 elements[index].classList.add('active');
-            }
+            },
+            unread(contact) {
+                console.log('ran unread', contact);
+                if (contact.messages !== null) {
+                    return contact.messages.is_read === 0;
+                }
+            },
         }
     }
 </script>

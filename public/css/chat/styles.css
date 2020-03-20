@@ -3,17 +3,58 @@
     display: none;
 }
 
+.profile {
+    position: relative;
+    padding-top: 20px;
+    text-align: center;
+    cursor: pointer;
+    width: 92% !important;
+    margin: 0 auto;
+}
+
+.logout {
+    position: absolute;
+    right: 0;
+    top: 25%;
+    transform: translateY(-50%);
+}
+
+.logout a {
+    text-decoration: none;
+    color: white;
+    padding: 0 10px;
+    border-radius: 10px;
+    background: linear-gradient(to right, rgb(235, 51, 73), rgb(244, 92, 67));
+}
+
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+}
+
+#profile-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#profile-email {
+    font-size: 14px;
+    color: darkgray;
+}
+
+
 #search-field {
     margin: 20px auto 0 auto;
     border-radius: 10px;
-    width: 85% !important;
+    width: 92% !important;
     height: 40px;
     border: none;
     background-color: #231F26;
 }
 
 .switch-buttons {
-    margin: 20px auto 8px auto;
+    margin: 10px auto 15px auto;
 }
 
 #contacts-switch-button, #conversation-switch-button {

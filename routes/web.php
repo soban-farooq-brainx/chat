@@ -24,7 +24,11 @@ Auth::routes();
 // axios routes
 
 // get all users
-Route::post('/users', 'MessageController@users')->name('conversations.users');
+Route::get('/users', 'MessageController@users')->name('conversations.users');
+
+
+// get users with unread
+Route::get('/unread', 'MessageController@eloquentUsers')->name('messages.unread');
 
 // get all conversations
 Route::get('/conversations', 'MessageController@conversations')->name('conversations.all');
@@ -37,5 +41,3 @@ Route::post('/send-message', 'MessageController@sendMessage')->name('conversatio
 
 // get logged in user
 Route::get('/user', 'UserController@user')->name('user.signedInUser');
-
-Route::get('/test', 'MessageController@test');

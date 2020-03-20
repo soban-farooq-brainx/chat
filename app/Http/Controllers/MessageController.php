@@ -53,11 +53,25 @@ class MessageController extends Controller
         return $messages;
     }
 
-    public function users()
+    public function jointUsers()
     {
-        $users = User::all()->except(Auth::id());
-        return $users;
+        // get logged in user
+        $user = Auth::id();
+        // left join to get all users all time
+        return DB::table('users')->where('users.id', '!=', $user)
+            ->leftJoin('messages', function ($join) use ($user) {
+                // first evaluate where in below function
+                $join->on('users.id', '=', 'messages.user_id')
+                    // filter messages sent to current user
+                    ->where('messages.receiver_id', '=', $user)
+                    // get only those messages which are unread
+                    ->where('messages.is_read', '=', 0);
+            })->select('users.*', 'messages.user_id', 'messages.receiver_id', 'messages.message'
+                , 'messages.is_read')
+            // finally grouped by email to get only 10 records from users table
+            ->orderBy('messages.created_at', 'DESC')->groupBy('email')->get();
     }
+
 
     public function sendMessage()
     {
@@ -70,5 +84,25 @@ class MessageController extends Controller
         return $message;
     }
 
+    public function users()
+    {
+        // get current user
+        $current_user = Auth::id();
+        // each through all users except current
+        $users = User::all()->except($current_user)->each(function ($user) use ($current_user) {
+            // laravel relationship
+            $user->messages = $user->messages()
+                // messages sent to me
+                ->where('receiver_id', $current_user)
+                // unread message sent to me
+                ->where('is_read', 0)
+                // get latest unread message
+                ->orderBy('created_at', 'DESC')
+                // first latest message
+                ->first();
+        });
+        // send back the response
+        return $users;
+    }
 
 }

@@ -13,8 +13,9 @@ let chatActions = {
     },
     setContacts: (context) => {
         return new Promise((resolve, reject) => {
-            axios.post('/users').then(response => {
+            axios.get('/users').then(response => {
                 let users = response.data;
+                console.log(users);
                 context.commit('setContacts', users);
                 resolve()
             }).catch(err => {

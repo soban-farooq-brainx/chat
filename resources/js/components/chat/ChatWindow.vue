@@ -3,10 +3,15 @@
 
         <div class="chat-flex">
             <div class="contacts flex-column" :class="{menuToggle: toggle}">
-                <search :showConversation="showConversations" :showContacts="showContacts"
-                        @switchedBetweenContactAndConversation="switchBetweenComponents($event)"
-                        @searchStarted="startSearch($event)"
-                ></search>
+                <div class="user-profile-component">
+                    <user-profile :user="user_profile"></user-profile>
+                </div>
+                <div class="search-component">
+                    <search :showConversation="showConversations" :showContacts="showContacts"
+                            @switchedBetweenContactAndConversation="switchBetweenComponents($event)"
+                            @searchStarted="startSearch($event)"
+                    ></search>
+                </div>
                 <div class="contact-book-component-wrapper"
                      :class="{'hide': !showContacts}">
                     <!-- contact-book has all components -->
@@ -31,8 +36,13 @@
 <script>
 
     import {mapState, mapGetters} from 'vuex';
+    import Profile from './profile/Profile.vue';
 
     export default {
+        props: ['user_profile'],
+        components: {
+            'user-profile': Profile
+        },
         data() {
             return {
                 user: {},
