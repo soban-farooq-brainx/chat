@@ -2085,8 +2085,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     unread: function unread(contact) {
       console.log('ran unread', contact);
 
-      if (contact.messages !== null) {
-        return contact.messages.is_read === 0;
+      if (contact.messages.length > 0) {
+        return contact.messages[0].is_read === 0;
       }
     }
   }

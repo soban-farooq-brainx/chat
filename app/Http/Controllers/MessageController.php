@@ -86,23 +86,12 @@ class MessageController extends Controller
 
     public function users()
     {
-        // get current user
         $current_user = Auth::id();
-        // each through all users except current
-        $users = User::all()->except($current_user)->each(function ($user) use ($current_user) {
-            // laravel relationship
-            $user->messages = $user->messages()
-                // messages sent to me
-                ->where('receiver_id', $current_user)
-                // unread message sent to me
-                ->where('is_read', 0)
-                // get latest unread message
-                ->orderBy('created_at', 'DESC')
-                // first latest message
-                ->first();
-        });
-        // send back the response
-        return $users;
+        return User::where('id', '<>', $current_user)
+            ->with(['messages' => function ($q) use ($current_user) {
+                $q->where('receiver_id', $current_user)
+                    ->where('is_read', 0);
+            }])->get();
     }
 
 }
