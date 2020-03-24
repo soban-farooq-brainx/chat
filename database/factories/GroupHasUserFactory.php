@@ -10,5 +10,6 @@ $factory->define(\App\GroupHasUser::class, function (Faker $faker) {
     $group_id = rand(1, 50);
     return [
         //
+        'user_id' => $user_id
     ];
 });

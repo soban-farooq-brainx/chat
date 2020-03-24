@@ -11,8 +11,8 @@ $factory->define(Message::class, function (Faker $faker) {
 
     return [
         //
-        'user_id' => $user_id,
         'group_id' => $group_id,
+        'sender_id' => $user_id,
         'message_text' => $faker->sentence
     ];
 });

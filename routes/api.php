@@ -18,4 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/users', 'Api\GroupController@allUsers')->name('api.users.all');
+
+Route::get('/groups', 'Api\GroupMessageController@getGroupsOfCurrentUser');
+
+Route::get('/group/{group_id}', 'Api\GroupMessageController@getGroupMessages');
