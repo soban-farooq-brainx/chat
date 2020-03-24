@@ -1,6 +1,204 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* helper classes */
+.hide {
+    display: none;
 }
 
+.profile {
+    position: relative;
+    padding-top: 20px;
+    text-align: center;
+    cursor: pointer;
+    width: 92% !important;
+    margin: 0 auto;
+}
+
+.logout {
+    position: absolute;
+    right: 0;
+    top: 25%;
+    transform: translateY(-50%);
+}
+
+.logout a {
+    text-decoration: none;
+    color: white;
+    padding: 0 10px;
+    border-radius: 10px;
+    background: linear-gradient(to right, rgb(235, 51, 73), rgb(244, 92, 67));
+}
+
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+}
+
+#profile-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#profile-email {
+    font-size: 14px;
+    color: darkgray;
+}
+
+
+#search-field {
+    margin: 20px auto 0 auto;
+    border-radius: 10px;
+    width: 92% !important;
+    height: 40px;
+    border: none;
+    background-color: #231F26;
+}
+
+.switch-buttons {
+    margin: 10px auto 15px auto;
+}
+
+#contacts-switch-button, #conversation-switch-button {
+    color: white;
+    border-radius: 10px;
+}
+
+#contacts-switch-button {
+    background: linear-gradient(to right, rgb(255, 65, 108), rgb(255, 75, 43));
+}
+
+#conversation-switch-button {
+    background: linear-gradient(to right, rgb(218, 68, 83), rgb(137, 33, 107));
+}
+
+
+.contacts {
+    padding: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: #000000;
+    color: white;
+    width: 400px;
+}
+
+.contact, .conversation {
+    margin: 1px 10px;
+    padding: 10px;
+    border-bottom: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.contact:first-child, conversation:first-child {
+    border-top: none;
+}
+
+.active {
+    background-color: rgba(42, 42, 42, 0.51);
+    border-radius: 10px;
+}
+
+.unread {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: linear-gradient(to right, rgb(203, 45, 62), rgb(239, 71, 58));
+}
+
+.contact-name {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.contact-email {
+    font-size: 14px;
+    color: darkgray;
+    font-weight: 200;
+}
+
+.message-area-container {
+    background-color: #231F26;
+    color: white;
+    width: 100%;
+}
+
+.custom-header {
+    width: 100%;
+    padding: 10px 30px;
+    border-bottom: 1px solid #2c2530;
+    position: fixed;
+    z-index: 99;
+    background-color: #231F26;
+}
+
+.chat-flex {
+    display: flex;
+}
+
+#responsive-header-menu {
+    display: none;
+}
+
+#header-name {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#header-email {
+    font-size: 13px;
+    color: darkgray;
+    font-weight: 200;
+}
+
+.messages-container {
+    width: 100%;
+    margin-top: 75px;
+    overflow-y: auto;
+    height: 9999px;
+}
+
+.message {
+    padding: 5px 15px;
+    color: white;
+    border-radius: 10px;
+    margin: 6px 15px;
+    clear: both;
+}
+
+.myMessage {
+    background: linear-gradient(to right, rgb(142, 45, 226), rgb(74, 0, 224));
+    float: right;
+}
+
+.notMyMessage {
+    background: linear-gradient(to right, rgb(0, 180, 219), rgb(0, 131, 176));
+    float: left;
+}
+
+#start-conversation {
+    width: 100%;
+    text-align: center;
+    margin: 120px auto;
+    font-size: 35px;
+    color: #898989;
+    font-weight: 200;
+}
+
+.message-footer-container {
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #2c2530;
+}
+
+#message-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    margin: 0 auto;
+    background-color: #231F26;
+    border-radius: 0;
+}

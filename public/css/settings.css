@@ -4,17 +4,77 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Cairo', sans-serif;
+    overflow: hidden;
+}
+
 .reset-row, .reset-col, .reset-container {
     padding: 0;
     margin: 0;
 }
 
 .margin-fix {
-    margin-bottom: 0!important;
+    margin-bottom: 0 !important;
 }
 
 
 .form-control:focus {
-    box-shadow: none!important;
-    border: none!important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+
+.btn {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.messages-container::-webkit-scrollbar {
+    width: 7px;
+    background-color: #F5F5F5;
+}
+
+.messages-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+    background-color: #F90;
+    background-image: -webkit-linear-gradient(45deg,
+    rgba(255, 255, 255, .2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .2) 50%,
+    rgba(255, 255, 255, .2) 75%,
+    transparent 75%,
+    transparent)
+}
+
+
+.contacts::-webkit-scrollbar {
+    width: 7px;
+    background-color: #F5F5F5;
+}
+
+.contacts::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+.contacts::-webkit-scrollbar-thumb {
+    background-color: #F90;
+    background-image: -webkit-linear-gradient(45deg,
+    rgba(255, 255, 255, .2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .2) 50%,
+    rgba(255, 255, 255, .2) 75%,
+    transparent 75%,
+    transparent)
+}
+
+.searchHidden {
+    display: none;
 }
