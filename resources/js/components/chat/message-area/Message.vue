@@ -46,6 +46,9 @@
                         if (response.message.user_id === this.user.id) {
                             // means we are talking to user
                             this.chats.push(response.message);
+                        } else {
+                            // push message to contacts array
+                            this.$store.commit('markAsUnread', response.message);
                         }
                     });
             }

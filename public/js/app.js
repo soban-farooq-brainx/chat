@@ -2083,8 +2083,6 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
       elements[index].classList.add('active');
     },
     unread: function unread(contact) {
-      console.log('ran unread', contact);
-
       if (contact.messages.length > 0) {
         return contact.messages[0].is_read === 0;
       }
@@ -2292,7 +2290,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.messageObj = {
         user_id: this.logged_in_user.id,
         receiver_id: this.user.id,
-        message: this.message
+        message: this.message,
+        is_read: 0
       };
       this.message = '';
       this.$store.dispatch('sendMessage', this.messageObj).then(function (response) {
@@ -2420,6 +2419,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (response.message.user_id === _this.user.id) {
           // means we are talking to user
           _this.chats.push(response.message);
+        } else {
+          // push message to contacts array
+          _this.$store.commit('markAsUnread', response.message);
         }
       });
     }
@@ -62390,7 +62392,6 @@ var chatActions = {
     return new Promise(function (resolve, reject) {
       axios.get('/users').then(function (response) {
         var users = response.data;
-        console.log(users);
         context.commit('setContacts', users);
         resolve();
       })["catch"](function (err) {
@@ -62401,7 +62402,19 @@ var chatActions = {
   setChat: function setChat(context, id) {
     axios.get("/conversation/".concat(id)).then(function (response) {
       var chat = response.data;
-      context.commit('setChat', chat);
+      context.commit('setChat', chat); // after setting the chat state, we must mark it as read if it was unread.
+
+      context.dispatch('markAsRead', {
+        sender_id: response.data[0].user_id,
+        receiver_id: response.data[0].receiver_id
+      });
+    })["catch"](function (err) {});
+  },
+  markAsRead: function markAsRead(context, payload) {
+    axios.post('/read', payload).then(function (response) {
+      if (response.status === 200) {
+        context.commit('markAsRead', payload);
+      }
     });
   },
   sendMessage: function sendMessage(context, payload) {
@@ -62468,6 +62481,22 @@ var chatMutations = {
   setContacts: function setContacts(state, users) {
     state.contacts = users;
     state.searchContacts = users;
+  },
+  markAsRead: function markAsRead(state, payload) {
+    state.contacts.forEach(function (item) {
+      item.messages.forEach(function (message) {
+        if (message.receiver_id === payload.receiver_id && message.user_id === payload.sender_id || message.receiver_id === payload.sender_id && message.user_id === payload.receiver_id) {
+          message.is_read = 1;
+        }
+      });
+    });
+  },
+  markAsUnread: function markAsUnread(state, payload) {
+    state.contacts.forEach(function (item) {
+      if (item.id === payload.user_id) {
+        item.messages.push(payload);
+      }
+    });
   },
   setChat: function setChat(state, chat) {
     state.chats = chat;

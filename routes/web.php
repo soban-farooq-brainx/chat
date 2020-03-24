@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'MessageController@index')->name('chat.index');
+
+Route::get('/', 'MessageController@index')->name('chat.index')->middleware('log_in');
 
 
-Auth::routes();
+\Illuminate\Support\Facades\Auth::routes();
 
 
 //Route::get('/conversations', 'MessageController@index')->name('conversation.home');
@@ -28,7 +29,7 @@ Route::get('/users', 'MessageController@users')->name('conversations.users');
 
 
 // get users with unread
-Route::get('/unread', 'MessageController@eloquentUsers')->name('messages.unread');
+Route::post('/read', 'MessageController@markAsRead')->name('messages.read');
 
 // get all conversations
 Route::get('/conversations', 'MessageController@conversations')->name('conversations.all');

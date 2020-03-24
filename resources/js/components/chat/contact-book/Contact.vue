@@ -62,7 +62,6 @@
                 elements[index].classList.add('active');
             },
             unread(contact) {
-                console.log('ran unread', contact);
                 if (contact.messages.length > 0) {
                     return contact.messages[0].is_read === 0;
                 }

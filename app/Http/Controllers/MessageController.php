@@ -41,9 +41,9 @@ class MessageController extends Controller
 
     public function conversations()
     {
-//         current user
+        //  current user
         $user = Auth::user();
-
+        // get my conversations
         $messages = Message::whereHas('user', function (Builder $query) use ($user) {
             $query->where('messages.user_id', '=', $user->id);
         })->orWhereHas('user', function (Builder $query) use ($user) {
@@ -92,6 +92,19 @@ class MessageController extends Controller
                 $q->where('receiver_id', $current_user)
                     ->where('is_read', 0);
             }])->get();
+    }
+
+    public function markAsRead(Request $request)
+    {
+        return Message::where(function ($query) use ($request) {
+            $query->where('user_id', $request->sender_id)
+                ->where('receiver_id', $request->receiver_id)
+                ->where('is_read', 0);
+        })->orWhere(function ($query) use ($request) {
+            $query->where('user_id', $request->receiver_id)
+                ->where('receiver_id', $request->sender_id)
+                ->where('is_read', 0);
+        })->update(['is_read' => 1]);
     }
 
 }

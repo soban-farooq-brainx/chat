@@ -33,7 +33,8 @@
                 this.messageObj = {
                     user_id: this.logged_in_user.id,
                     receiver_id: this.user.id,
-                    message: this.message
+                    message: this.message,
+                    is_read: 0
                 };
                 this.message = '';
                 this.$store.dispatch('sendMessage', this.messageObj).then((response) => {

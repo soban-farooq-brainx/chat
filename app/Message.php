@@ -25,5 +25,9 @@ class Message extends Model
         return $this->belongsTo('App\User', 'receiver_id');
     }
 
+    public function group()
+    {
+        return $this->belongsTo('App\Group');
+    }
 
 }
