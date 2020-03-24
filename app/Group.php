@@ -10,4 +10,9 @@ class Group extends Model
     {
         return $this->hasMany('App\Message');
     }
+
+    public function group_has_groups()
+    {
+        return $this->hasMany('App\GroupHasUser');
+    }
 }
