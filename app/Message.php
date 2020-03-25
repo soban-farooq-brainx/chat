@@ -12,7 +12,7 @@ class Message extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User', 'sender_id');
     }
 
     public function sender()
@@ -20,10 +20,6 @@ class Message extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function receiver()
-    {
-        return $this->belongsTo('App\User', 'receiver_id');
-    }
 
     public function group()
     {
