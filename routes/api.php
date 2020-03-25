@@ -22,3 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/groups', 'Api\GroupMessageController@getGroupsOfCurrentUser');
 Route::get('/group/{group_id}', 'Api\GroupMessageController@getGroupMessages');
 Route::post('/send-message', 'Api\GroupMessageController@sendAGroupMessage');
+
+Route::post('/login', 'Api\Auth\LoginController@login');
+Route::post('/refresh', 'Api\Auth\LoginController@refresh');
