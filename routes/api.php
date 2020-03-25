@@ -18,10 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::get('/groups', 'Api\GroupMessageController@getGroupsOfCurrentUser');
 Route::get('/group/{group_id}', 'Api\GroupMessageController@getGroupMessages');
-Route::post('/send-message', 'Api\GroupMessageController@sendAGroupMessage');
+Route::post('/group/send-message', 'Api\GroupMessageController@sendAGroupMessage');
+Route::post('/group/store', 'Api\GroupMessageController@createGroup');
+Route::post('/group/user/add', 'Api\GroupMessageController@addUserToGroup');
+Route::delete('/group/user/leave/{group_id}', 'Api\GroupMessageController@leaveGroup');
 
+
+// auth
 Route::post('/login', 'Api\Auth\LoginController@login');
 Route::post('/refresh', 'Api\Auth\LoginController@refresh');

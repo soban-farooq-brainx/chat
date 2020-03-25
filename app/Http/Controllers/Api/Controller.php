@@ -21,7 +21,7 @@ class Controller extends BaseController
         try {
             $user = auth()->userOrFail();
         } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $exception) {
-            return $this->unauthorizedUserMessage();
+            return null;
         }
         return $user;
     }
