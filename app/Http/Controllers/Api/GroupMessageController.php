@@ -26,4 +26,11 @@ class GroupMessageController extends Controller
         $users_groups = Message::where('group_id', $group_id)->with('user')->get();
         return MessageResource::collection($users_groups);
     }
+
+    public function sendAGroupMessage()
+    {
+        $message = request()->all();
+        $message = Message::create($message);
+        return new MessageResource($message);
+    }
 }
